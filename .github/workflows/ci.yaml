@@ -21,8 +21,7 @@ jobs:
           java-version: 11
           java-package: jdk
           distribution: 'openjdk' 
-          cache: 'maven
-
+          
       - name: Build and compile packages
         run:  mvn clean compile
 
