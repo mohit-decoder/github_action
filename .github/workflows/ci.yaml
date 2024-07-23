@@ -49,7 +49,8 @@ jobs:
         with:
           java-version: 11
           java-package: jdk
-
+          distribution: 'openjdk' 
+          cache: 'maven
     # steps:
     #   - name: Check out repository
     #     uses: actions/checkout@v4
