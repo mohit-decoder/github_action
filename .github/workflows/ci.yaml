@@ -1,28 +1,65 @@
+# name: CI
+
+# on:
+#   push:
+#     branchs:
+#     - main
+#     path-ignore:
+#     - 'Readme.md'
+
+# jobs:
+
+#   build:
+#     runs-on: ubuntu:latest
+#     steps:
+
+#     - name: check-out repository
+#       uses: actions/checkout@v4
+
+#     - name: setup java environment
+#       uses: actions/setup-java@v4
+#         with:
+#           java-version: '11'
+    
+#     - name: Build_and test packages
+#       run: mvn clean compile
+
+#     - name: test
+#       run: mvn test
+
+
 name: CI
 
 on:
   push:
-    branchs:
-    - main
-    path-ignore:
-    - 'Readme.md'
+    branches:
+      - main
+    paths-ignore:
+      - 'Readme.md'
 
 jobs:
-
   build:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
+
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-    - name: check-out repository
-      uses: actions/checkout@v4
-
-    - name: setup java environment
-      uses: actions/setup-java@v4
+      - name: Setup Java environment
+        uses: actions/setup-java@v4
         with:
           java-version: '11'
-    
-    - name: Build_and test packages
-      run: mvn clean compile
 
-    - name: test
-      run: mvn test
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build and compile packages
+        run: mvn clean compile
+
+      - name: Test
+        run: mvn test
