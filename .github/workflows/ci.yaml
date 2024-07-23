@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branchs:
+    - main
+    path-ignore:
+    - 'Readme.md'
+
+jobs:
+
+  build:
+    runs-on: ubuntu:latest
+    steps:
+
+    - name: check-out repository
+      uses: actions/checkout@v4
+
+    - name: setup java environment
+      uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+    
+    - name: Build_and test packages
+      run: mvn clean compile
+
+    - name: test
+      run: mvn test
