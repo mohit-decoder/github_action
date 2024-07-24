@@ -49,10 +49,10 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }} # Use secret for password
 
       - name: Build Docker and push images
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ../Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tomcat:v1.0
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}tomcat:v1.0
           # This builds the Docker image and pushes it to Docker Hub
