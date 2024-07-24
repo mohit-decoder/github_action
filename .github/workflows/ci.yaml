@@ -19,10 +19,10 @@ jobs:
           distribution: 'temurin' 
       - name: Build and compile packages 
         run:  mvn clean compile ## command to build packages
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
+  # test:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
       - name: Test
         run: mvn test ## command to test packages
  docker:
