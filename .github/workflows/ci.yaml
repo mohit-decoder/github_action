@@ -52,7 +52,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ../Dockerfile
+          file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tomcat:${{ github.run_id }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tomcat:${{github.run_id}}
           # This builds the Docker image and pushes it to Docker Hub
