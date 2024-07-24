@@ -1,104 +1,58 @@
 name: CI
+
 on:
   push:
     branches:
       - main
     paths-ignore:
-      - 'Readme.md'
+      - 'Readme.md' # Ignore changes to Readme.md
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository ##checkout_repository name_sense
-        uses: actions/checkout@v4  ##syntax-for-checkout
+      - name: Check out repository ## checkout_repository name_sense
+        uses: actions/checkout@v4 ## syntax-for-checkout
+        # This checks out the code to the GitHub runner
+
       - name: Set up Java
-        uses: actions/setup-java@v4 ##syntax-for-setup java
+        uses: actions/setup-java@v4 ## syntax-for-setup java
         with:
           java-version: 11
           java-package: jdk
-          distribution: 'temurin' 
-      - name: Build and compile packages 
-        run:  mvn clean compile ## command to build packages
-  # test:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
+          distribution: 'temurin' # Temurin distribution of OpenJDK
+
+      - name: Build and compile packages
+        run: mvn clean compile ## command to build packages
+        # This runs the Maven build command to compile the packages
+
       - name: Test
         run: mvn test ## command to test packages
- docker:
+        # This runs the Maven test command to execute tests
+
+  docker:
     runs-on: ubuntu-latest
-    needs:  build
+    needs: build
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        # Check out the repository again for the Docker job
+
       - name: Setup Docker Buildx
-        uses: actions/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
+        # Sets up Docker Buildx, which is necessary for multi-platform builds
+
       - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+          username: ${{ secrets.DOCKER_USERNAME }} # Use secret for username
+          password: ${{ secrets.DOCKER_TOKEN }} # Use secret for password
+
       - name: Build Docker and push images
-        uses: actions/build-push-action@v5
+        uses: docker/build-push-action@v5
         with:
           context: .
-          file: ../Dockerfile
+          file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB USERNAME }}/tomcat:${{ github.run_id }}
-
-# name: CI
-
-# on:
-#   push:
-#     branches:
-#       - main
-#     paths-ignore:
-#       - 'Readme.md'
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Check out repository ##checkout_repository name_sense
-#         uses: actions/checkout@v4 ##syntax-for-checkout
-
-#       - name: Set up Java
-#         uses: actions/setup-java@v4 ##syntax-for-setup java
-#         with:
-#           java-version: 11
-#           java-package: jdk
-#           distribution: 'temurin'
-
-#       - name: Build and compile packages
-#         run: mvn clean compile ##command to build packages
-   
-#    test:
-#     runs-on: ubuntu-latest
-#     needs: build
-#     steps:
-#       - name: Test
-#         run: mvn test ##command to test packages
-
-#   docker:
-#     runs-on: ubuntu-latest
-#     needs: build
-#     steps:
-#       - name: Check out repository
-#         uses: actions/checkout@v4
-
-#       - name: Setup Docker Buildx
-#         uses: docker/setup-buildx-action@v3
-
-#       - name: Log in to Docker Hub
-#         uses: docker/login-action@v3
-#         with:
-#           username: ${{ secrets.DOCKER_USERNAME }}
-#           password: ${{ secrets.DOCKER_TOKEN }}
-
-#       - name: Build Docker and push images
-#         uses: docker/build-push-action@v5
-#         with:
-#           context: .
-#           file: ../Dockerfile
-#           push: true
-#           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tomcat:${{ github.run_id }}
-
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tomcat:${{ github.run_id }}
+          # This builds the Docker image and pushes it to Docker Hub
