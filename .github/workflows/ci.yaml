@@ -70,7 +70,11 @@ jobs:
 
       - name: Build and compile packages
         run: mvn clean compile ##command to build packages
-
+   
+   test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Test
         run: mvn test ##command to test packages
 
@@ -94,7 +98,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile
+          file: ../Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tomcat:${{ github.run_id }}
 
