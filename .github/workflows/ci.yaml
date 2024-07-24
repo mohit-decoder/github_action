@@ -54,5 +54,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}:tomcatv1.0
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}tomcatv1.0
           # This builds the Docker image and pushes it to Docker Hub
