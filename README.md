@@ -81,14 +81,10 @@ To run this project locally, follow these steps:
 
     docker build -t your_dockerhub_username/tomcat:latest .
 
-3.Build the Docker Image:
-
-    docker build -t your_dockerhub_username/tomcat:latest .
-
-4.Run the Docker Container:
+3.Run the Docker Container:
 
     docker run -p 8080:8080 your_dockerhub_username/tomcat:latest
 
-5.Access the Application:
+4.Access the Application:
 
   Open your browser and navigate to http://localhost:8080 to see the running application.
