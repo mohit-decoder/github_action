@@ -14,10 +14,10 @@ Overview
 -----------
 This project is designed to demonstrate the following:
 
-1.  Building a Java Application: Using Maven to compile and test a Java application.
-2.  Containerizing the Application: Using Docker to package the application into a container.
-3.  Deploying with GitHub Actions: Automating the build and deployment process with GitHub Actions.
-4.  Publishing to Docker Hub: Automatically pushing the built Docker image to Docker Hub.
+  1.  Building a Java Application: Using Maven to compile and test a Java application.
+  2.  Containerizing the Application: Using Docker to package the application into a container.
+  3.  Deploying with GitHub Actions: Automating the build and deployment process with GitHub Actions.
+  4.  Publishing to Docker Hub: Automatically pushing the built Docker image to Docker Hub.
 
 Prerequisites
 -------------
@@ -39,15 +39,21 @@ The workflow is triggered on any push to the main branch, except changes to Read
 -  Build Job:
 
   Check out the repository: Uses the actions/checkout@v4 to clone the repository to the GitHub runner.
+  
   Set up Java: Configures the Java environment using the actions/setup-java@v4.
+  
   Build and compile: Runs mvn clean compile to build the Java application.
+  
   Test: Runs mvn test to execute the test cases.
 
 - Docker Job:
 
   Needs Build: This job depends on the successful completion of the build job.
+
   Setup Docker Buildx: Configures Docker Buildx for building images.
+
   Login to Docker Hub: Authenticates to Docker Hub using secrets.
+
   Build and Push Image: Builds the Docker image and pushes it to Docker Hub using docker/build-push-action@v5.
 
 -  Secrets Configuration
@@ -55,7 +61,9 @@ The workflow is triggered on any push to the main branch, except changes to Read
   Make sure to set the following secrets in your GitHub repository:
   
   DOCKER_USERNAME: Your Docker Hub username.
+  
   DOCKER_TOKEN: Your Docker Hub access token.
+  
   DOCKER_HUB_USERNAME: Your Docker Hub username again (used in the image tag).
 
 Running Locally
@@ -63,5 +71,5 @@ Running Locally
 To run this project locally, follow these steps:
 
 Clone the Repository:
-  '''git clone https://github.com/mohit-decoder/github_action.git'''
-    "cd github_action"
+git clone https://github.com/mohit-decoder/github_action.git
+cd github_action
