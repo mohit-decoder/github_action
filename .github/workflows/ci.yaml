@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - 'Readme.md' # Ignore changes to Readme.md
+      - 'README.md' # Ignore changes to Readme.md
 
 jobs:
   build:
