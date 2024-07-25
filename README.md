@@ -7,6 +7,7 @@ Table of Contents
 -  Overview
 -  Prerequisites
 -  GitHub Actions Workflow
+-  Running Locally
 -  Common Issues
 -  Debugging Tips
 
@@ -60,34 +61,34 @@ The workflow is triggered on any push to the main branch, except changes to Read
 
   Make sure to set the following secrets in your GitHub repository, go to repository setting go to secrets and variable section and into actions choose new repository secret mention below variable:
   
-  DOCKER_USERNAME: Your Docker Hub username.
-    
-  DOCKER_TOKEN: Your Docker Hub access token.
-    
-  DOCKER_HUB_USERNAME: Your Docker Hub username again (used in the image tag).
+    DOCKER_USERNAME: Your Docker Hub username.
+
+    DOCKER_TOKEN: Your Docker Hub access token.
+
+    DOCKER_HUB_USERNAME: Your Docker Hub username again (used in the image tag).
 
 Running Locally
 ---------------
 To run this project locally, follow these steps:
 
-Clone the Repository:
+1.Clone the Repository:
 
     git clone https://github.com/mohit-decoder/github_action.git 
     
     cd github_action
     
-Build the Docker Image:
+2.Build the Docker Image:
 
     docker build -t your_dockerhub_username/tomcat:latest .
 
-Build the Docker Image:
+3.Build the Docker Image:
 
     docker build -t your_dockerhub_username/tomcat:latest .
 
-Run the Docker Container:
+4.Run the Docker Container:
 
     docker run -p 8080:8080 your_dockerhub_username/tomcat:latest
 
-Access the Application:
+5.Access the Application:
 
-Open your browser and navigate to http://localhost:8080 to see the running application.
+  Open your browser and navigate to http://localhost:8080 to see the running application.
