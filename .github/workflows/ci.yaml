@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - 'README.md' # Ignore changes to Readme.md
+      - 'Readme.md' # Ignore changes to Readme.md
 
 jobs:
   build:
@@ -14,28 +14,22 @@ jobs:
       - name: Check out repository ## checkout_repository name_sense
         uses: actions/checkout@v4 ## syntax-for-checkout
         # This checks out the code to the GitHub runner
+
       - name: Set up Java
         uses: actions/setup-java@v4 ## syntax-for-setup java
         with:
           java-version: 11
           java-package: jdk
           distribution: 'temurin' # Temurin distribution of OpenJDK
+
       - name: Build and compile packages
         run: mvn clean compile ## command to build packages
- tests:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Set up Java
-        uses: actions/setup-java@v4 ## syntax-for-setup java
-        with:
-          java-version: 11
-          java-package: jdk
-          distribution: 'temurin' # Temurin distribution of OpenJDK
+        # This runs the Maven build command to compile the packages
+
       - name: Test
         run: mvn test ## command to test packages
+        # This runs the Maven test command to execute tests
+
   docker:
     runs-on: ubuntu-latest
     needs: build
@@ -45,7 +39,7 @@ jobs:
         # Check out the repository again for the Docker job
 
       - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
         # Sets up Docker Buildx, which is necessary for multi-platform builds
 
       - name: Log in to Docker Hub
@@ -55,7 +49,7 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN}} # Use secret for password
 
       - name: Build Docker and push images
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
