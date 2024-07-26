@@ -70,6 +70,7 @@ jobs:
 
     - name: Update tag in Helm chart
       run: |
+        pwd
         sed -i 's/tag: .*/tag: "${{github.run_id}}"/' /helm/studentapp-chart/values.yaml
 
     - name: Set Git Global Config
