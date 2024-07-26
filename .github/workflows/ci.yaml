@@ -70,7 +70,7 @@ jobs:
 
     - name: Update tag in Helm chart
       run: |
-        ls 
+        ls /helm/studentapp-chart
         awk '/tag:/ {print "  tag: \"'${{ github.run_id }}'\""; next} 1' helm/studentapp-chart/values.yaml > temp.yaml && mv temp.yaml helm/studentapp-chart/values.yaml
 
     - name: Set Git Global Config
