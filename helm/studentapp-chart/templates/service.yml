@@ -1,0 +1,16 @@
+# Service for the application
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-app
+  labels:
+    app: student-app
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    nodePort: 30001  # Explicitly set NodePort within range 30000-32767
+  selector:
+    app: student-app
+  type: NodePort
