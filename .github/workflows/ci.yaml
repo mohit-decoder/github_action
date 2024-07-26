@@ -27,6 +27,20 @@ jobs:
       - name: Build and compile packages
         run: mvn clean compile ## command to build packages
         # This runs the Maven build command to compile the packages
+  Test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Check out repository ## checkout_repository name_sense
+        uses: actions/checkout@v4 ## syntax-for-checkout
+        # This checks out the code to the GitHub runner
+
+      - name: Set up Java
+        uses: actions/setup-java@v4 ## syntax-for-setup java
+        with:
+          java-version: 11
+          java-package: jdk
+          distribution: 'temurin' # Temurin distribution of OpenJDK
 
       - name: Test
         run: mvn test ## command to test packages
@@ -70,8 +84,6 @@ jobs:
 
     - name: Update tag in Helm chart
       run: |
-        cd /helm/studentapp-chart
-        ls 
         awk '/tag:/ {print "  tag: \"'${{ github.run_id }}'\""; next} 1' /values.yaml > temp.yaml && mv temp.yaml helm/studentapp-chart/values.yaml
 
     - name: Set Git Global Config
