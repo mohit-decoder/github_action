@@ -22,7 +22,6 @@ jobs:
           distribution: 'temurin' # Temurin distribution of OpenJDK
       - name: Build and compile packages
         run: mvn clean compile ## command to build packages
-        # This runs the Maven build command to compile the packages
  tests:
     runs-on: ubuntu-latest
     needs: build
@@ -37,8 +36,6 @@ jobs:
           distribution: 'temurin' # Temurin distribution of OpenJDK
       - name: Test
         run: mvn test ## command to test packages
-        # This runs the Maven test command to execute tests
-
   docker:
     runs-on: ubuntu-latest
     needs: build
