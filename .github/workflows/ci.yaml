@@ -82,9 +82,9 @@ jobs:
       with:
         token: ${{ secrets.TOKEN }}
 
-    - name: Update tag in Helm chart
-      run: |
-        awk '/tag:/ {print "  tag: \"'${{ github.run_id }}'\""; next} 1' /values.yaml > temp.yaml && mv temp.yaml helm/studentapp-chart/values.yaml
+    # - name: Update tag in Helm chart
+    #   run: |
+    #     awk '/tag:/ {print "  tag: \"'${{ github.run_id }}'\""; next} 1' /values.yaml > temp.yaml && mv temp.yaml helm/studentapp-chart/values.yaml
 
     - name: Set Git Global Config
       run: |
