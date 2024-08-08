@@ -20,11 +20,12 @@ FROM ubuntu:20.04
 
 RUN mkdir -p /opt/tomcat
 
+
 COPY install.sh .
 
 RUN chmod 777 install.sh && sh install.sh
 
-RUN mv apache-tomcat-10.1.26/* /opt/tomcat && mv mysql-connector.jar /opt/tomcat/lib
+RUN mv apache-tomcat-10.1.28/* /opt/tomcat && mv mysql-connector.jar /opt/tomcat/lib
 
 # Set the working directory in the distroless image
 WORKDIR /opt/tomcat
