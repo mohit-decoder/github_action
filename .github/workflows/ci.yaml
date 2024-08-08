@@ -84,7 +84,7 @@ jobs:
 
     - name: Update tag in Helm chart
       run: |
-        awk '/tag:/ {print "  tag: \"'${{ github.run_id }}'\""; next} 1' /values.yaml > temp.yaml && mv temp.yaml helm/studentapp-chart/values.yaml
+         sed -i 's/tag: .*/tag: "${{github.run_id}}"/' github_action/helm/studentapp-chart/values.yaml
 
     - name: Set Git Global Config
       run: |
